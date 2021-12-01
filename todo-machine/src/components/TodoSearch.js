@@ -3,16 +3,22 @@ import './TodoSearch.css'
 
 function TodoSearch(){
 
+  const [searchValue, setSearchValue] = React.useState('')
+
   const onSearchValueChange = (event) => {
-    console.log(event.target.value)
+    setSearchValue(event.target.value)
   }
 
   return (
-    <input 
-      className="TodoSearch"
-      placeholder="Introduzca una tarea"
-      onChange={onSearchValueChange}
-    />
+    <React.Fragment>
+      <input 
+        className="TodoSearch"
+        placeholder="Introduzca una tarea"
+        value={searchValue}
+        onChange={onSearchValueChange}
+      />
+      <p>{searchValue}</p>
+    </React.Fragment>
   )
 }
 

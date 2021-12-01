@@ -16,7 +16,7 @@ function App() {
   return (
     <React.Fragment>
       <TodoCounter/>
-      <TodoSearch />
+      <TodoSearch/>
       <TodoList>
         {todos.map(todo => (
           <TodoItem
