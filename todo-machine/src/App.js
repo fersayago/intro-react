@@ -33,6 +33,32 @@ function App() {
     })
   }
 
+  // MARCAR COMPLETADO
+  const completeTodo = (text) => {
+    const todoIndex = todos.findIndex (todo => todo.text === text)
+    const newTodos = [ ...todos ];
+    newTodos[todoIndex].completed= true;
+    setTodos(newTodos);
+  }
+
+  // MARCAR INCOMPLETO
+  const uncompleteTodo = (text) => {
+    const todoIndex = todos.findIndex ( todo => todo.text === text)
+    const newTodos = [ ...todos ];
+    newTodos[todoIndex].completed = false;
+    setTodos(newTodos);
+  }
+
+  // ELIMINAR
+  const deleteTodo = (text) => {
+    const todoIndex = todos.findIndex (todo => todo.text === text)
+    const newTodos = [ ...todos ];
+    // para poder eliminar el todo, usamos splice para
+    // indicar desde donde eliminamos y cuantos elementos
+    newTodos.splice(todoIndex, 1);
+    setTodos(newTodos);
+  }
+
   return (
     <React.Fragment>
       <TodoCounter
@@ -49,6 +75,9 @@ function App() {
             key={todo.text}
             text={todo.text}
             completed={todo.completed}
+            onComplete={() => {completeTodo(todo.text)}}
+            onUncomplete={() => {uncompleteTodo(todo.text)}}
+            deleteTodo={() => {deleteTodo(todo.text)}}
           />
         ))}
       </TodoList>
