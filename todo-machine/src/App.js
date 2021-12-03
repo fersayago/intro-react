@@ -9,21 +9,37 @@ const defaultTodos = [
   {text: 'Rotar ruedas del auto', completed: false},
 ]
 */
-function App() {
-  const localStorageTodos = localStorage.getItem('TODOS_V1')
 
-  let parsedTodos;
+function useLocalStorage (itemName, initialValue) {
+  const localStorageItem = localStorage.getItem(itemName)
+  let parsedItem;
 
-  if (!localStorageTodos){
-    // si localStorageTodos esta vacio se crea un array el cual luego se puede poblar y
-    // utilizar con JSON.parse en el estado de Todos
-    localStorage.setItem('TODOS_V1', JSON.stringify([]))
-    parsedTodos= [];
+  
+  if (!localStorageItem){
+    // si localStorageItem esta vacio se crea un array el cual luego se puede poblar y
+    // utilizar con JSON.parse en el estado de Item
+    localStorage.setItem(itemName, JSON.stringify(initialValue))
+    parsedItem= [];
   } else {
-    parsedTodos = JSON.parse(localStorageTodos)
+    parsedItem = JSON.parse(localStorageItem)
   }
 
-  const [todos, setTodos] = React.useState(parsedTodos);
+  const [item, setItem] = React.useState(parsedItem);
+  
+  // funcion para guardar los Item en el estado pero ademas
+  // PARA PERSISTIR LOS ITEM EN EL LOCAL STORAGE
+  const saveItem= (newItem) => {
+    const stringifiedItem = JSON.stringify(newItem);
+    localStorage.setItem(itemName, stringifiedItem);
+    setItem(newItem);
+  }
+
+  return [ item, saveItem ]
+}
+
+function App() {
+
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodos = todos.filter(todo => todo.completed === true).length;
@@ -39,14 +55,6 @@ function App() {
       const searchText = searchValue.toLowerCase();
       return todoText.includes(searchText);
     })
-  }
-
-  // funcion para guardar los todos en el estado pero ademas
-  // PARA PERSISTIR LOS TODOS EN EL LOCAL STORAGE
-  const saveTodos= (newTodos) => {
-    const stringifiedTodos = JSON.stringify(newTodos);
-    localStorage.setItem('TODOS_V1', stringifiedTodos);
-    setTodos(newTodos);
   }
 
   const completeTodo = (text) => {
