@@ -1,16 +1,29 @@
 import React from 'react'
 import AppUI from './AppUI';
 
+/* 
 const defaultTodos = [
   {text: 'Comprar leche de soja', completed: true},
   {text: 'Pepa y agua pa \'la seca', completed: true},
   {text: 'Sacar turno para la VTV', completed: false},
   {text: 'Rotar ruedas del auto', completed: false},
 ]
-
+*/
 function App() {
+  const localStorageTodos = localStorage.getItem('TODOS_V1')
 
-  const [todos, setTodos] = React.useState(defaultTodos);
+  let parsedTodos;
+
+  if (!localStorageTodos){
+    // si localStorageTodos esta vacio se crea un array el cual luego se puede poblar y
+    // utilizar con JSON.parse en el estado de Todos
+    localStorage.setItem('TODOS_V1', JSON.stringify([]))
+    parsedTodos= [];
+  } else {
+    parsedTodos = JSON.parse(localStorageTodos)
+  }
+
+  const [todos, setTodos] = React.useState(parsedTodos);
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodos = todos.filter(todo => todo.completed === true).length;
@@ -28,30 +41,35 @@ function App() {
     })
   }
 
-  // MARCAR COMPLETADO
+  // funcion para guardar los todos en el estado pero ademas
+  // PARA PERSISTIR LOS TODOS EN EL LOCAL STORAGE
+  const saveTodos= (newTodos) => {
+    const stringifiedTodos = JSON.stringify(newTodos);
+    localStorage.setItem('TODOS_V1', stringifiedTodos);
+    setTodos(newTodos);
+  }
+
   const completeTodo = (text) => {
     const todoIndex = todos.findIndex (todo => todo.text === text)
     const newTodos = [ ...todos ];
     newTodos[todoIndex].completed= true;
-    setTodos(newTodos);
+    saveTodos(newTodos);
   }
 
-  // MARCAR INCOMPLETO
   const uncompleteTodo = (text) => {
     const todoIndex = todos.findIndex ( todo => todo.text === text)
     const newTodos = [ ...todos ];
     newTodos[todoIndex].completed = false;
-    setTodos(newTodos);
+    saveTodos(newTodos);
   }
 
-  // ELIMINAR
   const deleteTodo = (text) => {
     const todoIndex = todos.findIndex (todo => todo.text === text)
     const newTodos = [ ...todos ];
     // para poder eliminar el todo, usamos splice para
     // indicar desde donde eliminamos y cuantos elementos
     newTodos.splice(todoIndex, 1);
-    setTodos(newTodos);
+    saveTodos(newTodos);
   }
 
   return (
