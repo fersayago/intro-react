@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/fersayago.github.io/todo-machine/static/css/main.1e09ac39.chunk.css",
+    "main.js": "/fersayago.github.io/todo-machine/static/js/main.5c35e102.chunk.js",
+    "main.js.map": "/fersayago.github.io/todo-machine/static/js/main.5c35e102.chunk.js.map",
+    "runtime-main.js": "/fersayago.github.io/todo-machine/static/js/runtime-main.3be97085.js",
+    "runtime-main.js.map": "/fersayago.github.io/todo-machine/static/js/runtime-main.3be97085.js.map",
+    "static/js/2.600104f4.chunk.js": "/fersayago.github.io/todo-machine/static/js/2.600104f4.chunk.js",
+    "static/js/2.600104f4.chunk.js.map": "/fersayago.github.io/todo-machine/static/js/2.600104f4.chunk.js.map",
+    "index.html": "/fersayago.github.io/todo-machine/index.html",
+    "static/css/main.1e09ac39.chunk.css.map": "/fersayago.github.io/todo-machine/static/css/main.1e09ac39.chunk.css.map",
+    "static/js/2.600104f4.chunk.js.LICENSE.txt": "/fersayago.github.io/todo-machine/static/js/2.600104f4.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3be97085.js",
+    "static/js/2.600104f4.chunk.js",
+    "static/css/main.1e09ac39.chunk.css",
+    "static/js/main.5c35e102.chunk.js"
+  ]
+}
